@@ -69,12 +69,20 @@ app.get('/api/dashboard-data', (req, res) => {
       changeTypes[row.type] = (changeTypes[row.type] || 0) + 1;
 
       // 统计元素类型
-      const elementType = row.target.split('.')[0];
-      elementTypes[elementType] = (elementTypes[elementType] || 0) + 1;
+      if (row.target) {
+        const elementType = row.target.split('.')[0];
+        elementTypes[elementType] = (elementTypes[elementType] || 0) + 1;
+      } else {
+        // 处理 target 为 null 或 undefined 的情况
+        elementTypes['unknown'] = (elementTypes['unknown'] || 0) + 1;
+      }
 
       // 统计变化频率
-      const hour = new Date(row.timestamp).getHours();
-      changeFrequency[hour] = (changeFrequency[hour] || 0) + 1;
+      const timestamp = new Date(row.timestamp);
+      if (!isNaN(timestamp.getTime())) {
+        const hour = timestamp.getHours();
+        changeFrequency[hour] = (changeFrequency[hour] || 0) + 1;
+      }
     });
 
     // 准备时间标签和对应的变化频率数据
