@@ -5,6 +5,8 @@
   "description": "A browser extension that monitors DOM changes and sends notifications to a local server.",
   "permissions": [
     "activeTab",
+    "storage",
+    "tabs",
     "http://localhost:3000/*"
   ],
   "content_scripts": [
@@ -18,5 +20,6 @@
   "background": {
     "scripts": ["background.js"],
     "persistent": false
-  }
+  },
+  "options_page": "options.html"
 }
