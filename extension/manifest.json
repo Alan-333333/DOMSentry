@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "DOMSentry",
+  "version": "1.0",
+  "description": "A browser extension that monitors DOM changes and sends notifications to a local server.",
+  "permissions": [
+    "activeTab",
+    "http://localhost:3000/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": ["content.js"]
+    }
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  }
+}
